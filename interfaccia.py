@@ -6,19 +6,21 @@ root.title("Analisi testo")
 percorso = tk.Entry(root)
 percorso.pack(padx=10, pady=20)
 
+#Trovare il numero di parole e caratteri:
 def conteggioparole (testodato, paroledate):
     nparole = len(paroledate)
     ncaratteri = len(testodato)
     print("Conteggio parole: ", nparole)
     print("Conteggio caratteri: ", ncaratteri)
 
+#Trovare la parola più lunga, corta e frequente:
 def parolakpi (paroledate):
     listaparole = []
     dizionario = {}
     for a in paroledate:
         p_pulita = a.strip(".,:;!?") #toglie la punteggiatura dalla parola
         p_pulita = p_pulita.replace("\n", " ") #mette tutto su un'unica linea
-        listaparole.appent(p_pulita)
+        listaparole.append(p_pulita)
         if "" in listaparole:
             listaparole.remove("") #il programma mi dava stringhe vuote nella lista, quindi le rimuovo
         if p_pulita in dizionario:
@@ -32,10 +34,11 @@ def parolakpi (paroledate):
     print("La parola più lunga è: ", p_lunga)
     print("La parola più frequente è: ", frequente)
 
+#Trovare il numero di spazi e segni di punteggiatura:
 def spaziepunti (testodato):
     punteggiatura = [".", ",", ":", ";", "!", "?"]
-    p = 0
-    s = 0
+    p = 0 #un contatore per i punti
+    s = 0 #un contatore per gli spazi
     for i in testodato:
         if i in punteggiatura:
             p += 1
@@ -45,17 +48,20 @@ def spaziepunti (testodato):
     print("Numero di segni di punteggiatura: ", p)
             
 
-def leggi (percorsofile):
+def leggi ():
+    percorsofile = percorso.get()
     with open(percorsofile, "r") as file:
         testo = file.read()
         parole = testo.split()
-        
+        numparole = conteggioparole(testo, parole)
+        spaziosegni = spaziepunti(testo)
+        statisticaparole = parolakpi(parole)
 
 
-
-bottone = tk.Button(root, text="Analizza file", command=somma)
+bottone = tk.Button(root, text="Analizza file", command=leggi)
 bottone.pack()
 
+root.mainloop()
 
 
 
