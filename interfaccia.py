@@ -71,8 +71,11 @@ nparole_res.pack()
 nspazi_res = tk.Label(root, text="")
 nspazi_res.pack()
 pcorta_res = tk.Label(root, text="")
+pcorta_res.pack()
 plunga_res = tk.Label(root, text="")
+plunga_res.pack()
 pfrequente_res = tk.Label(root, text="")
+pfrequente_res.pack()
 
 root.mainloop()
 
