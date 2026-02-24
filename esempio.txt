@@ -1,0 +1,2 @@
+Sono riuscita a fare il programma, ma non mi dà la parola più corta se il testo non è tutto in una linea. Ho provato a fare replace per i daccapo ma non me lo dà. Se il testo è tutto in linea funziona bene. 
+Alla fine era perché mi dava delle stringhe vuote
