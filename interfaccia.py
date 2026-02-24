@@ -3,15 +3,15 @@ import tkinter as tk
 root = tk.Tk()
 root.title("Analisi testo")
 
+tk.Label(root, text="Inserisci il percorso del file:").pack(pady=5)
 percorso = tk.Entry(root)
-percorso.pack(padx=10, pady=20)
+percorso.pack()
 
 #Trovare il numero di parole e caratteri:
 def conteggioparole (testodato, paroledate):
     nparole = len(paroledate)
     ncaratteri = len(testodato)
-    print("Conteggio parole: ", nparole)
-    print("Conteggio caratteri: ", ncaratteri)
+    return nparole, ncaratteri
 
 #Trovare la parola più lunga, corta e frequente:
 def parolakpi (paroledate):
@@ -30,9 +30,7 @@ def parolakpi (paroledate):
     p_corta = min(listaparole, key=len)
     p_lunga = max(listaparole, key=len)
     frequente = max(dizionario, key=dizionario.get)
-    print("La parola più corta è: ", p_corta)
-    print("La parola più lunga è: ", p_lunga)
-    print("La parola più frequente è: ", frequente)
+    return p_corta, p_lunga, frequente
 
 #Trovare il numero di spazi e segni di punteggiatura:
 def spaziepunti (testodato):
@@ -44,8 +42,7 @@ def spaziepunti (testodato):
             p += 1
         elif i == " ":
             s += 1
-    print ("Numero di spazi: ", s)
-    print("Numero di segni di punteggiatura: ", p)
+    return s, p
             
 
 def leggi ():
@@ -53,13 +50,29 @@ def leggi ():
     with open(percorsofile, "r") as file:
         testo = file.read()
         parole = testo.split()
-        numparole = conteggioparole(testo, parole)
-        spaziosegni = spaziepunti(testo)
-        statisticaparole = parolakpi(parole)
+
+        numparole, numcaratteri = conteggioparole(testo, parole)
+        numspazi, numpunti = spaziepunti(testo)
+        pcorta, plunga, pfrequente = parolakpi(parole)
+
+        nparole_res.config(text=f"Parole: {numparole}, Caratteri: {numcaratteri}")
+        nspazi_res.config(text=f"Spazi: {numspazi}, Punteggiatura: {numpunti}")
+        pcorta_res.config(text=f"Parola più corta: {pcorta}")
+        plunga_res.config(text=f"Parola più lunga: {plunga}")
+        pfrequente_res.config(text=f"Parola più frequente: {pfrequente}")
+
 
 
 bottone = tk.Button(root, text="Analizza file", command=leggi)
 bottone.pack()
+
+nparole_res = tk.Label(root, text="I risultati appariranno qui")
+nparole_res.pack()
+nspazi_res = tk.Label(root, text="")
+nspazi_res.pack()
+pcorta_res = tk.Label(root, text="")
+plunga_res = tk.Label(root, text="")
+pfrequente_res = tk.Label(root, text="")
 
 root.mainloop()
 
